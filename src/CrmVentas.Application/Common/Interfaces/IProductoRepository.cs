@@ -1,4 +1,4 @@
-using CrmVentas.Domain.Entities;
+using CrmVentas.Domain.Modelos;
 
 namespace CrmVentas.Application.Common.Interfaces;
 

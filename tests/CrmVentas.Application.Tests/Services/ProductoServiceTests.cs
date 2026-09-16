@@ -25,7 +25,7 @@ public class ProductoServiceTests
         var dto = new ProductoCreateDto("SKU-1", "Producto", null, 100, 10);
 
         await Assert.ThrowsAsync<BusinessRuleException>(() => _sut.CrearAsync(dto));
-        _productoRepository.Verify(r => r.AgregarAsync(It.IsAny<Domain.Entities.Producto>()), Times.Never);
+        _productoRepository.Verify(r => r.AgregarAsync(It.IsAny<Domain.Modelos.Producto>()), Times.Never);
     }
 
     [Fact]

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrmVentas.Mobile.ViewModel"
+             x:Class="CrmVentas.Mobile.Vistas.ClienteDetailPage"
+             x:DataType="vm:ClienteDetailViewModel"
+             Title="{Binding Titulo}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Nombre *" FontAttributes="Bold" />
+            <Entry Text="{Binding Nombre}" Placeholder="Nombre del cliente" />
+
+            <Label Text="Email" FontAttributes="Bold" />
+            <Entry Text="{Binding Email}" Placeholder="correo@ejemplo.com" Keyboard="Email" />
+
+            <Label Text="Teléfono" FontAttributes="Bold" />
+            <Entry Text="{Binding Telefono}" Placeholder="Teléfono" Keyboard="Telephone" />
+
+            <Label Text="Dirección" FontAttributes="Bold" />
+            <Entry Text="{Binding Direccion}" Placeholder="Dirección" />
+
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+
+            <Button Text="Guardar" Command="{Binding GuardarCommand}" Margin="0,16,0,0" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

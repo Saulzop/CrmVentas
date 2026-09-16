@@ -1,5 +1,5 @@
 using CrmVentas.Application.Common.Interfaces;
-using CrmVentas.Domain.Entities;
+using CrmVentas.Domain.Modelos;
 
 namespace CrmVentas.Infrastructure.Persistence;
 

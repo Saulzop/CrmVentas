@@ -1,4 +1,4 @@
-using CrmVentas.Mobile.Views;
+using CrmVentas.Mobile.Vistas;
 
 namespace CrmVentas.Mobile;
 

@@ -1,4 +1,4 @@
-using CrmVentas.Domain.Entities;
+using CrmVentas.Domain.Modelos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

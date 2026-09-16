@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrmVentas.Mobile.ViewModel"
+             xmlns:dtos="clr-namespace:CrmVentas.Application.Dtos;assembly=CrmVentas.Application"
+             x:Class="CrmVentas.Mobile.Vistas.PedidosPage"
+             x:Name="root"
+             x:DataType="vm:PedidosViewModel"
+             Title="Pedidos">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nuevo" Command="{Binding NuevoPedidoCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding CargarCommand}">
+        <Grid RowDefinitions="Auto,*">
+            <Label Grid.Row="0" Text="{Binding ErrorMessage}" TextColor="Red" Margin="16,8" />
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Pedidos}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="dtos:PedidoDto">
+                        <Grid Padding="16,12">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference root}, Path=BindingContext.VerDetalleCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout Spacing="2">
+                                <Label FontAttributes="Bold">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Pedido #" />
+                                            <Span Text="{Binding Id}" />
+                                            <Span Text="  —  " />
+                                            <Span Text="{Binding ClienteNombre}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label FontSize="13" Opacity="0.7">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Estado}" />
+                                            <Span Text="  ·  Total: $" />
+                                            <Span Text="{Binding Total, StringFormat='{0:0.00}'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

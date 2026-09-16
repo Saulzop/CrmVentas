@@ -1,6 +1,6 @@
 using CrmVentas.Mobile.Services;
-using CrmVentas.Mobile.ViewModels;
-using CrmVentas.Mobile.Views;
+using CrmVentas.Mobile.ViewModel;
+using CrmVentas.Mobile.Vistas;
 using Microsoft.Extensions.Logging;
 
 namespace CrmVentas.Mobile;

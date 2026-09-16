@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using CrmVentas.Application.Common.Interfaces;
-using CrmVentas.Domain.Entities;
+using CrmVentas.Domain.Modelos;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

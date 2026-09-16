@@ -2,7 +2,7 @@ using CrmVentas.Application.Common.Exceptions;
 using CrmVentas.Application.Common.Interfaces;
 using CrmVentas.Application.Dtos;
 using CrmVentas.Application.Services;
-using CrmVentas.Domain.Entities;
+using CrmVentas.Domain.Modelos;
 using CrmVentas.Domain.Enums;
 using Moq;
 using Xunit;
