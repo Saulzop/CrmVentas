@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrmVentas.Mobile.ViewModels"
+             xmlns:dtos="clr-namespace:CrmVentas.Application.Dtos;assembly=CrmVentas.Application"
+             xmlns:enums="clr-namespace:CrmVentas.Domain.Enums;assembly=CrmVentas.Domain"
+             x:Class="CrmVentas.Mobile.Views.PedidoDetailPage"
+             x:Name="root"
+             x:DataType="vm:PedidoDetailViewModel"
+             Title="Detalle del pedido">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="{Binding Pedido.ClienteNombre}" FontSize="20" FontAttributes="Bold" />
+            <Label FontSize="14" Opacity="0.7">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Pedido #" />
+                        <Span Text="{Binding Pedido.Id}" />
+                        <Span Text="  ·  Estado: " />
+                        <Span Text="{Binding Pedido.Estado}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <BoxView HeightRequest="1" Color="LightGray" Margin="0,8" />
+
+            <Label Text="Productos" FontAttributes="Bold" />
+            <CollectionView ItemsSource="{Binding Pedido.Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="dtos:PedidoItemDto">
+                        <Grid Padding="0,6" ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="{Binding ProductoNombre}" />
+                            <Label Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Cantidad}" />
+                                        <Span Text=" x $" />
+                                        <Span Text="{Binding PrecioUnitario, StringFormat='{0:0.00}'}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <BoxView HeightRequest="1" Color="LightGray" Margin="0,8" />
+
+            <Label FontAttributes="Bold" FontSize="16">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Total: $" />
+                        <Span Text="{Binding Pedido.Total, StringFormat='{0:0.00}'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label Text="Cambiar estado a:" FontAttributes="Bold" Margin="0,12,0,0" />
+
+            <CollectionView ItemsSource="{Binding SiguientesEstados}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="enums:EstadoPedido">
+                        <Button Text="{Binding .}"
+                                Command="{Binding Source={x:Reference root}, Path=BindingContext.CambiarEstadoCommand}"
+                                CommandParameter="{Binding .}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

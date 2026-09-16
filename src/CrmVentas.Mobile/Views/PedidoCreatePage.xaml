@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrmVentas.Mobile.ViewModels"
+             xmlns:dtos="clr-namespace:CrmVentas.Application.Dtos;assembly=CrmVentas.Application"
+             x:Class="CrmVentas.Mobile.Views.PedidoCreatePage"
+             x:Name="root"
+             x:DataType="vm:PedidoCreateViewModel"
+             Title="Nuevo pedido">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Cliente *" FontAttributes="Bold" />
+            <Picker ItemsSource="{Binding Clientes}"
+                    ItemDisplayBinding="{Binding Nombre}"
+                    SelectedItem="{Binding ClienteSeleccionado}" />
+
+            <Label Text="Productos" FontAttributes="Bold" Margin="0,16,0,0" />
+
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ItemPedidoEnConstruccion">
+                        <Grid Padding="0,8" ColumnDefinitions="3*,1*,Auto" ColumnSpacing="8">
+                            <Picker Grid.Column="0"
+                                    ItemsSource="{Binding Source={x:Reference root}, Path=BindingContext.Productos}"
+                                    ItemDisplayBinding="{Binding Nombre}"
+                                    SelectedItem="{Binding ProductoSeleccionado}" />
+                            <Entry Grid.Column="1" Text="{Binding Cantidad}" Keyboard="Numeric" Placeholder="Cant." />
+                            <Button Grid.Column="2" Text="✕" BackgroundColor="IndianRed"
+                                    Command="{Binding Source={x:Reference root}, Path=BindingContext.QuitarItemCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="+ Agregar producto" Command="{Binding AgregarItemCommand}" />
+
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+
+            <Button Text="Crear pedido" Command="{Binding GuardarCommand}" Margin="0,16,0,0" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
