@@ -41,40 +41,6 @@ CrmVentas.sln
 └── docker-compose.yml             SQL Server en contenedor (alternativa a LocalDB)
 ```
 
-**Stack:**
-
-| Capa | Tecnologías |
-|---|---|
-| Backend | .NET 10, ASP.NET Core Web API (controllers), Entity Framework Core, SQL Server |
-| Auth | JWT Bearer, BCrypt.Net |
-| Documentación de API | Swagger / OpenAPI (Swashbuckle) |
-| Mobile | .NET MAUI, CommunityToolkit.Mvvm, Shell navigation |
-| Testing | xUnit, Moq |
-| CI | GitHub Actions |
-
-## Cómo correrlo
-
-### Requisitos
-
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- SQL Server (LocalDB, una instancia local, o el `docker-compose.yml` incluido)
-- Para la app móvil: workload de MAUI (`dotnet workload install maui`) y, para Android, el SDK de Android + JDK
-
-### 1. Backend (API)
-
-```bash
-# Si usas Docker en vez de LocalDB, levanta SQL Server:
-docker compose up -d
-
-# Aplica las migraciones (usa LocalDB por defecto, ver appsettings.Development.json)
-dotnet tool install --global dotnet-ef
-dotnet ef database update --project src/CrmVentas.Infrastructure --startup-project src/CrmVentas.Api
-
-# Levanta la API
-dotnet run --project src/CrmVentas.Api
-```
-
-La API queda disponible en `http://localhost:5119` (puerto definido en `launchSettings.json`), con Swagger en `/swagger`. Al arrancar en modo desarrollo, se aplican migraciones y se siembran datos de ejemplo automáticamente, incluyendo un usuario:
 
 - **Usuario:** `admin`
 - **Contraseña:** `Admin123!`
@@ -88,11 +54,7 @@ dotnet build src/CrmVentas.Mobile -f net10.0-android               # Android
 
 La app apunta a `http://localhost:5119` en Windows y a `http://10.0.2.2:5119` en el emulador de Android (ver [`AppConfig.cs`](src/CrmVentas.Mobile/Services/AppConfig.cs)).
 
-### 3. Pruebas unitarias
 
-```bash
-dotnet test tests/CrmVentas.Application.Tests
-```
 
 ## Decisiones técnicas
 
